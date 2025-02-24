@@ -1,0 +1,44 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/finance_control
+    username: postgres
+    password: admin
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update  # Faz com que o Spring Boot crie as tabelas automaticamente
+      show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  jackson:
+    serialization:
+      INDENT_OUTPUT: true
+
+  sql:
+    init:
+      platform: postgres
+      enabled: true
+  security:
+    user:
+      name: admin
+      password: admin
+      roles: USER, ADMIN
+
+  flyway:
+    enabled: false  # Habilita/desabilita o Flyway
+    locations: classpath:db/migration  # Local onde as migrations estão
+
+
+  management:
+    endpoints:
+      web:
+        exposure:
+          include: "*"
+    endpoint:
+      health:
+        show-details: always
+    security:
+      enabled: false
